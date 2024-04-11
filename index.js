@@ -51,6 +51,7 @@ io.on("connection", (socket) => {
   //   send and get message
   const messages = {}; //object to track messgae sent to a user
   socket.on("sendMessage", ({ senderId, receiverId, text, images }) => {
+    console.log(`message sent by ${senderId} is ${text}`);
     const message = createMessage({ senderId, receiverId, text, images });
     const user = getUser(receiverId);
     //storing the messages in messgaes object created above
@@ -84,7 +85,7 @@ io.on("connection", (socket) => {
       }
     }
   });
-  
+
   // update the messages and get the last send message
   socket.on("updateLastMessage", ({ lastMessage, lastMessageId }) => {
     io.emit("getLastMessage", {
